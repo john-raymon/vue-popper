@@ -6,17 +6,49 @@
 
   Popper = Popper && Popper.hasOwnProperty('default') ? Popper['default'] : Popper;
 
-  //
+  function _defineProperty(obj, key, value) {
+    if (key in obj) {
+      Object.defineProperty(obj, key, {
+        value: value,
+        enumerable: true,
+        configurable: true,
+        writable: true
+      });
+    } else {
+      obj[key] = value;
+    }
+
+    return obj;
+  }
+
+  function _objectSpread(target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i] != null ? arguments[i] : {};
+      var ownKeys = Object.keys(source);
+
+      if (typeof Object.getOwnPropertySymbols === 'function') {
+        ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {
+          return Object.getOwnPropertyDescriptor(source, sym).enumerable;
+        }));
+      }
+
+      ownKeys.forEach(function (key) {
+        _defineProperty(target, key, source[key]);
+      });
+    }
+
+    return target;
+  }
 
   function on(element, event, handler) {
     if (element && event && handler) {
-      document.addEventListener ? element.addEventListener(event, handler, false) : element.attachEvent('on' + event, handler);
+      document.addEventListener ? element.addEventListener(event, handler, false) : element.attachEvent("on".concat(event), handler);
     }
   }
 
   function off(element, event, handler) {
     if (element && event) {
-      document.removeEventListener ? element.removeEventListener(event, handler, false) : element.detachEvent('on' + event, handler);
+      document.removeEventListener ? element.removeEventListener(event, handler, false) : element.detachEvent("on".concat(event), handler);
     }
   }
 
@@ -87,6 +119,10 @@
       rootClass: {
         type: String,
         "default": ''
+      },
+      showPopperDefault: {
+        type: Boolean,
+        "default": false
       }
     },
     data: function data() {
@@ -169,6 +205,10 @@
           on(this.popper, 'blur', this.onMouseOut);
           break;
       }
+
+      if (this.showPopperDefault) {
+        this.showPopper = true;
+      }
     },
     methods: {
       doToggle: function doToggle(event) {
@@ -226,8 +266,8 @@
             var boundariesElement = document.querySelector(_this.boundariesSelector);
 
             if (boundariesElement) {
-              _this.popperOptions.modifiers = Object.assign({}, _this.popperOptions.modifiers);
-              _this.popperOptions.modifiers.preventOverflow = Object.assign({}, _this.popperOptions.modifiers.preventOverflow);
+              _this.popperOptions.modifiers = _objectSpread({}, _this.popperOptions.modifiers);
+              _this.popperOptions.modifiers.preventOverflow = _objectSpread({}, _this.popperOptions.modifiers.preventOverflow);
               _this.popperOptions.modifiers.preventOverflow.boundariesElement = boundariesElement;
             }
           }
@@ -395,7 +435,7 @@
   /* script */
   const __vue_script__ = script;
   // For security concerns, we use only base name in production mode. See https://github.com/vuejs/rollup-plugin-vue/issues/258
-  script.__file = "/Users/user/projects/vue-popper/src/component/popper.js.vue";
+  script.__file = "/Users/john/Desktop/misc/vue-popper/src/component/popper.js.vue";
   /* template */
   var __vue_render__ = function() {
     var _vm = this;
